@@ -50,14 +50,16 @@ const NoteCon = styled.div `
     justify-content: center;
 `;
 
-const autoHeight = (elem) => {
-    elem.current.style.height = '5px';
-    elem.current.style.height = (10 + elem.current.scrollHeight)+'px';
-}
+
 
 
 
 const Main = (props) => {
+
+    const autoHeight = (elem) => {
+        elem.current.style.height = '5px';
+        elem.current.style.height = (10 + elem.current.scrollHeight)+'px';
+    }
 
     const textAreaRef = useRef(null);
     
@@ -66,15 +68,19 @@ const Main = (props) => {
             <main>
                 <Notecard action=''>
                     {props.showInput ? 
-                        <Title type='text' placeholder='Title' 
+                        <Title 
+                            type='text' 
+                            placeholder='Title' 
+                            name='title'
+                            id=''
                             value={props.titleValue}
                             onFocus={() => props.onTitleFocus(true)}
                             onBlur={() => props.onTitleFocus(false)}
-                            onChange={(e) => props.onTitleChange(e.target.value)}
+                            onChange={(e) => props.onTitleChange(e.target.title.value)}
                         /> : ''
                     }
                     
-                    <Textarea type='text' id='' cols='30' row='1' placeholder='Make a Note!' 
+                    <Textarea type='text' id='' cols='30' row='1' placeholder='Make a Note!' name='text'
                         value={props.textValue}
                         onFocus={() => {
                             props.onShowInput(true);
@@ -83,9 +89,13 @@ const Main = (props) => {
                         }} 
                         onInput={() => autoHeight(textAreaRef)} ref={textAreaRef}
                         onBlur={() => props.onTextFocus(false)}
-                        onChange={(e) => props.onTextChange(e.target.value)}
+                        onChange={(e) => props.onTextChange(e.target.text.value)}
                     />
                 </Notecard>
+                <NoteCon>
+                    {props.notes.map((note, index)=><Note note={note} 
+                    key={index} />)}
+                </NoteCon>
             </main>
         </>
     );
