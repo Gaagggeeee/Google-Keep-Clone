@@ -69,16 +69,16 @@ function App() {
       <Header />
       <Main
         textValue = {textValue}
-        titleValue = {titleValue}
-        showInput = {showInput}
-        textFocused={textFocused}
-        titleFocused={titleFocused}
-        onShowInput = {(state) => setShowInput(state)}
-        onTextInput = {(state) => setTextValue(state)}
-        onTitleInput = {(state) => setTitleValue(state)}
-        onTextFocus = {(state) => setTextFocused(state)}
-        onTitleFocus = {(state) => setTitleFocused(state)}
-        notes={notes}
+				titleValue = {titleValue}
+				showInput={showInput}
+				textFocused={textFocused}
+				titleFocused={titleFocused}
+				onTextFocus={(state) => setTextFocused(state)}
+				onTitleFocus={(state)=>setTitleFocused(state)}
+				onShowInput = {(state)=>setShowInput(state)}
+				onTextChange = {(state)=>setTextValue(state)}
+				onTitleChange = {state=>setTitleValue(state)}
+				notes={notes}
       />
     </div>
   );

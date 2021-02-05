@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Note from './note';
 
@@ -55,13 +55,13 @@ const NoteCon = styled.div `
 
 
 const Main = (props) => {
+    
+    const textAreaRef = useRef(null);
 
     const autoHeight = (elem) => {
         elem.current.style.height = '5px';
         elem.current.style.height = (10 + elem.current.scrollHeight)+'px';
     }
-
-    const textAreaRef = useRef(null);
     
     return (
         <>
@@ -71,16 +71,22 @@ const Main = (props) => {
                         <Title 
                             type='text' 
                             placeholder='Title' 
-                            name='title'
+                            name=''
                             id=''
                             value={props.titleValue}
                             onFocus={() => props.onTitleFocus(true)}
                             onBlur={() => props.onTitleFocus(false)}
-                            onChange={(e) => props.onTitleChange(e.target.title.value)}
+                            onChange={(e) => props.onTitleChange(e.target.value)}
                         /> : ''
                     }
                     
-                    <Textarea type='text' id='' cols='30' row='1' placeholder='Make a Note!' name='text'
+                    <Textarea 
+                        type='text' 
+                        id='' 
+                        cols='30' 
+                        row='1' 
+                        placeholder='Make a Note!' 
+                        name='text'
                         value={props.textValue}
                         onFocus={() => {
                             props.onShowInput(true);
@@ -89,7 +95,7 @@ const Main = (props) => {
                         }} 
                         onInput={() => autoHeight(textAreaRef)} ref={textAreaRef}
                         onBlur={() => props.onTextFocus(false)}
-                        onChange={(e) => props.onTextChange(e.target.text.value)}
+                        onChange={(e) => props.onTextChange(e.target.value)}
                     />
                 </Notecard>
                 <NoteCon>
